@@ -1,15 +1,15 @@
 version: 2.1
 
+orbs:
+  python: circleci/python@2.1.1  # Using the official Python orb
+
 jobs:
   build_and_test:
-    executor: python/default  # Using the default Python executor
+    executor: python/default  # The orb defines this executor
     steps:
-      - checkout  # Check out the source code
-      - run:
-          name: Install dependencies
-          command: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt  # Make sure all dependencies are installed
+      - checkout  # Check out the code
+      - python/install-packages:  # This step comes from the orb, handles dependencies
+          pkg-manager: pip
       - run:
           name: Run tests
           command: pytest -v  # Run the tests with verbose output
