@@ -1,22 +1,17 @@
 version: 2.1
-
+orbs:
+  python: circleci/python@2.1.1
 jobs:
-  build_and_test:
-    docker:
-      - image: circleci/python:3.8  # Use the CircleCI Python 3.8 Docker image
+  build_and_test: # this can be any name you choose
+    executor: python/default # use the default executor defined within the orb
     steps:
-      - checkout  # Check out the source code
-      - run:
-          name: Install dependencies
-          command: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt  # Install dependencies from requirements.txt
+      - checkout # checkout source code
+      - python/install-packages:
+          pkg-manager: pip
       - run:
           name: Run tests
-          command: pytest -v tests.py # Run the tests with verbose output
-
+          command: python -m pytest
 workflows:
-  version: 2
-  python_app_pipeline:
+  build_test_deploy:
     jobs:
       - build_and_test
