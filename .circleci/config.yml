@@ -10,7 +10,7 @@ jobs:
           pkg-manager: pip
       - run:
           name: Run tests
-          command: python -m pytest
+          command: pytest -v
 workflows:
   build_test_deploy:
     jobs:
