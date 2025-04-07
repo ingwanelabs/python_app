@@ -13,13 +13,6 @@ jobs:
           command: python -m pytest
 
 workflows:
-  version: 2
-  python_app_pipeline:
+  build_test_deploy:
     jobs:
-      - build_and_test:
-          filters:
-            branches:
-              only: main  # Trigger on pushes to the 'main' branch
-            pull_requests:
-              only:
-                - main  # Trigger for PRs targeting the 'main' branch
+      - build_and_test
